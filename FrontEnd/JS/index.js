@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   const gallery = document.querySelector('.gallery');
+  const filters = document.querySelectorAll('.filters button');
+  
+  
 
   // Utilisez fetch pour récupérer les travaux depuis l'API
   fetch('http://localhost:5678/api/works', {
@@ -15,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       
       return response.json().then(worksData => {
-        // Traitez les données récupérées et ajoutez-les à la galerie.
+        
         worksData.forEach(work => {
           const workElement = document.createElement('div');
           workElement.classList.add('work-item');
@@ -31,4 +34,25 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(error => {
       console.error('Erreur :', error);
     });
+    
 }, false);
+fetch('http://localhost:5678/api/categories', {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erreur de réseau');
+    }
+    return response.json();
+  })
+  .then(categoryData => {
+   
+    console.log(categoryData);
+  })
+  .catch(error => {
+    console.error('Erreur :', error);
+  });
+
