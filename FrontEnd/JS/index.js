@@ -51,22 +51,60 @@ const displayWorks = works => {
   })
 }
 
-/* fetch('http://localhost:5678/api/categories', {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Erreur de réseau');
+// Login 
+// const loginButton = document.getElementById('submit'); // Sélectionnez le bouton de connexion
+
+// loginButton.addEventListener('click', () => {
+//   const emailInput = document.getElementById('email');
+//   const passwordInput = document.getElementById('password');
+
+//   const email = emailInput.value;
+//   const password = passwordInput.value;
+
+//   const userData = {
+//     email: email,
+//     password: password
+//   };
+
+//   // Utilisez fetch pour envoyer les données d'authentification au serveur
+//   fetch('http://localhost:5678/api/users/login', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(userData)
+//   })
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error('Erreur de connexion');
+//       }
+//       // Gérer la réponse du serveur (redirection, affichage de messages, etc.)
+//       // Vous pouvez ajouter des actions supplémentaires ici en fonction de la réponse du serveur.
+//       console.log('Connecté avec succès !');
+//     })
+//     .catch(error => {
+//       console.error('Erreur de connexion :', error);
+//     });
+// });
+
+// Modal
+
+if (data.userId) {
+  // Afficher la modal
+  const modal = document.getElementById('myModal');
+  const closeModal = document.getElementsByClassName('close')[0];
+
+  modal.style.display = 'block';
+
+  // Fermer la modal lorsqu'on clique sur le bouton de fermeture
+  closeModal.onclick = function () {
+    modal.style.display = 'none';
+  };
+
+  // Fermer la modal si l'utilisateur clique en dehors de la modal
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
     }
-    return response.json();
-  })
-  .then(categoryData => {
-   
-    console.log(categoryData);
-  })
-  .catch(error => {
-    console.error('Erreur :', error);
-  });*/
+  };
+}
