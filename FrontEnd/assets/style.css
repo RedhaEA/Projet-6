@@ -364,33 +364,16 @@ body {
 	overflow: auto;
 }
 
-/* Contenu de la modal */
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Style pour le bouton de fermeture */
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
 
 .error-message {
 	color: red;
 	display: none;
 }
+
+#modify-projects {
+	font-size: 14px;
+  cursor: pointer;
+  margin-left: 692px;
+  display: flex;
+  margin-top: -50px;
+  }

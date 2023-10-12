@@ -2,6 +2,8 @@ document.addEventListener(
   'DOMContentLoaded',
   function () {
     const filters = document.querySelectorAll('.filters button')
+    const buttonProjects = document.querySelectorAll(".open-modal");
+    
 
     // Utilisez fetch pour récupérer les travaux depuis l'API
     fetch('http://localhost:5678/api/works', {
@@ -50,3 +52,22 @@ const displayWorks = works => {
     gallery.appendChild(workElement)
   })
 }
+
+function openModal() {
+  const modal = document.getElementById("modale");
+  modal.style.display = "block";
+}
+
+// Fonction pour fermer la modale
+function closeModal() {
+  const modal = document.getElementById("modale");
+  modal.style.display = "none";
+}
+
+// Lorsqu'un bouton est cliqué, ouvrir la modale
+const openButton = document.querySelector(".open-modal");
+openButton.addEventListener("click", openModal);
+
+// Lorsqu'un bouton de fermeture est cliqué, fermer la modale
+const closeButton = document.querySelector(".closeModale");
+closeButton.addEventListener("click", closeModal);
