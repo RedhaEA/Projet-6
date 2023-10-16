@@ -4,7 +4,7 @@ document.addEventListener(
     // Tout le code ici s'execute une fois le document chargé
 
     //Appel de la function "fetchWorks", présente plus bas dans le code.
-    fetchWorks();
+    fetchWorks(false);
 
     // Récupération des buttons
     const loginBtn = document.getElementById("login");
@@ -47,17 +47,35 @@ function isConnected() {
   }
 }
 
-const displayWorks = works => {
-  const gallery = document.querySelector('.gallery')
+const displayWorks = (works, forModal) => {
+  var gallery = document.querySelector('.gallery')
+
+  if (forModal) {
+    gallery = document.querySelector('.modal-gallery');
+  }
+
   gallery.innerHTML = ''
   works.forEach(work => {
-    const workElement = document.createElement('div')
-    workElement.classList.add('work-item')
-    workElement.innerHTML = `
-  <img src="${work.imageUrl}" alt="${work.title}">
-  <h3>${work.title}</h3>
-  <p>${work.description}</p>
-`
+        const workElement = document.createElement('div')
+        workElement.classList.add('work-item')
+
+        if (forModal){
+          workElement.innerHTML = `
+          <div>
+          <button class="trash-btn" onclick="deleteWork(${work.id})">
+          <i class="fa fa-light fa-trash-can"  aria-hidden="true"></i>
+          </button>
+          <img src="${work.imageUrl}" alt="${work.title}"/>
+          <h3>${work.title}</h3>
+          <p>${work.description}</p>
+          </div>`
+        }else{
+          workElement.innerHTML = `
+          <img src="${work.imageUrl}" alt="${work.title}"/>
+          <h3>${work.title}</h3>
+          <p>${work.description}</p>`
+        }
+
     gallery.appendChild(workElement)
   })
 }
@@ -66,6 +84,13 @@ const displayWorks = works => {
 function openModal() {
   const modal = document.getElementById("modale");
   modal.style.visibility = "visible";
+  fetchWorks(true);
+}
+
+function deleteWork(id){
+  // TODO : Appeler l'api (fetch, delete sur le work en question)
+  // S'inspirer de fetch work
+  alert(id);
 }
 
 // Function pour fermer la modale 
@@ -74,7 +99,7 @@ function closeModal() {
   modal.style.visibility = "hidden";
 }
 
-function fetchWorks() {
+function fetchWorks(forModal) {
   const filters = document.querySelectorAll('.filters button');
 
   // Utilisez fetch pour récupérer les travaux depuis l'API
@@ -97,10 +122,10 @@ function fetchWorks() {
                 work.category.name === filterButton.textContent ||
                 filterButton.textContent === 'Tous'
             )
-            displayWorks(filteredWorks)
+            displayWorks(filteredWorks, forModal)
           })
         })
-        displayWorks(filteredWorks)
+        displayWorks(filteredWorks, forModal)
       })
     })
     .catch(error => {
