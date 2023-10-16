@@ -372,8 +372,16 @@ body {
 
 #modify-projects {
 	font-size: 14px;
-  cursor: pointer;
-  margin-left: 692px;
-  display: flex;
-  margin-top: -50px;
-  }
+	cursor: pointer;
+	margin-left: 692px;
+	display: flex;
+	margin-top: -50px;
+}
+
+.display-none {
+	display: none !important;
+}
+
+.display-block {
+	display: block !important;
+}
