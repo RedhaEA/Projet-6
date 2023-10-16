@@ -2,27 +2,35 @@ document.addEventListener(
   'DOMContentLoaded',
   function () {
     // Tout le code ici s'execute une fois le document chargé
+
+    //Appel de la function "fetchWorks", présente plus bas dans le code.
     fetchWorks();
 
+    // Récupération des buttons
     const loginBtn = document.getElementById("login");
     const disconnectBtn = document.getElementById("disconnect");
+    const closeModalBtn = document.getElementById("closeModaleBtn");
+    const modifyButton = document.getElementById("modify-projects");
+    // Ajout de l'event pour fermer la modale
+    closeModalBtn.addEventListener("click", closeModal);
 
+    // Ajout de l'event déconnexion
     disconnectBtn.addEventListener("click", () => {
       localStorage.clear();
       this.location.reload();
     });
 
+    //Si on est connecté
     if (isConnected()) {
       loginBtn.classList.add("display-none");
       disconnectBtn.classList.remove("display-none");
     } else {
+      //Sinon
       loginBtn.classList.remove("display-none");
       disconnectBtn.classList.add("display-none");
     }
 
-    const modifyButton = document.getElementById("modify-projects");
-    modifyButton.addEventListener("click", () => alert("click_ok"));
-
+    // Si on est connecté, on affiche également le button "modifier"
     if (isConnected())
       modifyButton.classList.remove("display-none");
   },
@@ -54,15 +62,16 @@ const displayWorks = works => {
   })
 }
 
+// Function pour ouvrir la modale 
 function openModal() {
   const modal = document.getElementById("modale");
-  modal.style.display = "block";
+  modal.style.visibility = "visible";
 }
 
-// Fonction pour fermer la modale
+// Function pour fermer la modale 
 function closeModal() {
   const modal = document.getElementById("modale");
-  modal.style.display = "none";
+  modal.style.visibility = "hidden";
 }
 
 function fetchWorks() {

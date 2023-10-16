@@ -12,6 +12,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="./JS/index.js"></script>
+	<script src="https://kit.fontawesome.com/e1a783ce50.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -48,7 +49,7 @@
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
 
-			<button id="modify-projects" class="open-modal display-none">modifier</button>
+			<button id="modify-projects" onclick="openModal()" class="open-modal display-none">modifier</button>
 
 
 			<div class="filters">
@@ -85,5 +86,11 @@
 		</nav>
 	</footer>
 </body>
+<div id="modale">
+	<div>
+		<a id="closeModaleBtn" class="closeModale"><i class="fa-solid fa-x"></i></a>
+		<h3>Galerie photo</h>
+	</div>
+</div>
 
 </html>
