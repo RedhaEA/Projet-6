@@ -90,7 +90,7 @@ function openModal() {
 function deleteWork(id){
   // TODO : Appeler l'api (fetch, delete sur le work en question)
   // Route : Works/{id} exemple : WOrks/8 ou WOrks/10
-  // NE pas oublier d'insérer le token dans le header (le récupérer avec le localStorage) et le foutre dans le headers
+  // NE pas oublier d'insérer le token dans le header (le récupérer avec le localStorage) et le mettre dans le headers
   // S'inspirer de fetch work
   alert(id);
 }
