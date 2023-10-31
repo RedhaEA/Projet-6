@@ -56,11 +56,11 @@ const displayWorks = (works, forModal) => {
 
   gallery.innerHTML = ''
   works.forEach(work => {
-        const workElement = document.createElement('div')
-        workElement.classList.add('work-item')
+    const workElement = document.createElement('div')
+    workElement.classList.add('work-item')
 
-        if (forModal){
-          workElement.innerHTML = `
+    if (forModal) {
+      workElement.innerHTML = `
           <div>
           <button class="trash-btn" onclick="deleteWork(${work.id})">
           <i class="fa fa-light fa-trash-can"  aria-hidden="true"></i>
@@ -69,12 +69,12 @@ const displayWorks = (works, forModal) => {
           <h3>${work.title}</h3>
           <p>${work.description}</p>
           </div>`
-        }else{
-          workElement.innerHTML = `
+    } else {
+      workElement.innerHTML = `
           <img src="${work.imageUrl}" alt="${work.title}"/>
           <h3>${work.title}</h3>
           <p>${work.description}</p>`
-        }
+    }
 
     gallery.appendChild(workElement)
   })
@@ -87,12 +87,18 @@ function openModal() {
   fetchWorks(true);
 }
 
-function deleteWork(id){
-  // TODO : Appeler l'api (fetch, delete sur le work en question)
-  // Route : Works/{id} exemple : WOrks/8 ou WOrks/10
-  // NE pas oublier d'insérer le token dans le header (le récupérer avec le localStorage) et le mettre dans le headers
-  // S'inspirer de fetch work
-  alert(id);
+async function deleteWork(id) {
+  let token = localStorage.getItem("token");
+  var response = await fetch(`http://localhost:5678/api/works/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  if (response.ok){
+    closeModal();
+  }
 }
 
 // Function pour fermer la modale 
