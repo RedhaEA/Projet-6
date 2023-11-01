@@ -88,11 +88,39 @@
 </body>
 <div id="modale">
 	<div class="modal-container">
-		<a id="closeModaleBtn" class="closeModale"><i class="fa-solid fa-x"></i></a>
-		<h3>Galerie photo</h3>
+		<div class="modal-header">
+			<a id="backModalBtn"><i class="fa-solid fa-x"></i></a>
+			<h3 id="modal-title">Galerie photo</h3>
+			<a id="closeModaleBtn" class="closeModale"><i class="fa-solid fa-x"></i></a>
+		</div>
 		<div class="modal-gallery">
 			<!-- Galerie de travaux -->
 		</div>
+		<div class="modal-add-project">
+			<form class="add-project-form" method="post" action="#">
+				<div class="dropzone" id="dropzone">
+					<i class="fa fa-thin fa-image faAddImgSquare" aria-hidden="true"></i>
+					<label class="addImgLabel">
+						<p>+ Ajouter Photo </p>
+						<p class="addWorkFormMandatoryStar">*</p><input type="file" accept="image/png, image/jpeg"
+							name="image" id="imageInput" required="">
+					</label>
+					<p> jpg, png: 4mo max</p>
+				</div>
+				<div class="form-input">
+					<label for="title">Titre </label>
+					<input type="text" name="title" id="title" required />
+				</div>
+				<div class="form-input">
+					<label for="category">Catégorie </label>
+					<select id="category-select" type="select" name="category" required="">
+					</select>
+				</div>
+
+			</form>
+		</div>
+		<button id="addProjectBtn" onclick="onAddProjectClick()" class="modal-btn">Ajouter une photo</button>
+		<button id="confirmProjectBtn" onclick="postWork()" class="modal-btn">Valider</button>
 	</div>
 </div>
 

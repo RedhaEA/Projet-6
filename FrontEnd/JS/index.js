@@ -10,10 +10,11 @@ document.addEventListener(
     const loginBtn = document.getElementById("login");
     const disconnectBtn = document.getElementById("disconnect");
     const closeModalBtn = document.getElementById("closeModaleBtn");
+    const backModalBtn = document.getElementById("backModalBtn");
     const modifyButton = document.getElementById("modify-projects");
     // Ajout de l'event pour fermer la modale
     closeModalBtn.addEventListener("click", closeModal);
-
+    backModalBtn.addEventListener("click", showGallery);
     // Ajout de l'event déconnexion
     disconnectBtn.addEventListener("click", () => {
       localStorage.clear();
@@ -84,6 +85,7 @@ const displayWorks = (works, forModal) => {
 function openModal() {
   const modal = document.getElementById("modale");
   modal.style.visibility = "visible";
+  showGallery();
   fetchWorks(true);
 }
 
@@ -96,7 +98,7 @@ async function deleteWork(id) {
       'Authorization': `Bearer ${token}`
     }
   });
-  if (response.ok){
+  if (response.ok) {
     closeModal();
   }
 }
@@ -105,6 +107,10 @@ async function deleteWork(id) {
 function closeModal() {
   const modal = document.getElementById("modale");
   modal.style.visibility = "hidden";
+  document.getElementsByClassName("modal-gallery")[0].style.visibility = "hidden";
+  document.getElementsByClassName("modal-add-project")[0].style.visibility = "hidden";
+  document.getElementById("addProjectBtn").style.visibility = "hidden";
+  document.getElementById("confirmProjectBtn").style.visibility = "hidden";
 }
 
 function fetchWorks(forModal) {
@@ -141,3 +147,60 @@ function fetchWorks(forModal) {
     });
 }
 
+function onAddProjectClick() {
+  showAddProjectForm();
+}
+
+function showGallery() {
+  document.getElementById("modal-title").innerHTML = "Galerie Photo";
+  document.getElementsByClassName("modal-gallery")[0].style.visibility = "visible";
+  document.getElementsByClassName("modal-add-project")[0].style.visibility = "collapse";
+  document.getElementById("addProjectBtn").style.visibility = "visible";
+  document.getElementById("confirmProjectBtn").style.visibility = "collapse";
+  document.getElementById("backModalBtn").style.visibility = "collapse";
+}
+
+async function showAddProjectForm() {
+  document.getElementById("modal-title").innerHTML = "Ajout Photo";
+  document.getElementsByClassName("modal-gallery")[0].style.visibility = "collapse";
+  document.getElementsByClassName("modal-add-project")[0].style.visibility = "visible";
+  document.getElementById("addProjectBtn").style.visibility = "collapse";
+  document.getElementById("confirmProjectBtn").style.visibility = "visible";
+  document.getElementById("backModalBtn").style.visibility = "visible";
+
+  let response = await fetch(`http://localhost:5678/api/categories`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+  var select = document.getElementById("category-select");
+  select.innerHTML = '';
+  if (response.ok) {
+    var categories = await response.json();
+    categories.forEach(category => {
+      var option = document.createElement("option");
+      option.text = category.name;
+      option.value = parseInt(category.id);
+      select.appendChild(option)
+    });
+  }
+}
+
+async function postWork() {
+  const postWorkForm = document.getElementsByClassName("add-project-form")[0];
+  const token = localStorage.getItem('token');
+
+  var response = await fetch('http://localhost:5678/api/works', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: new FormData(postWorkForm),
+  });
+
+  if (response.ok) {
+    closeModal();
+  }
+
+}
